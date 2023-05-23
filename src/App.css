@@ -1,0 +1,45 @@
+
+
+@keyframes slideIn {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+.App {
+  width: 100vw;
+  height: 100vh;
+  padding: 30px;
+  display: flex;
+  background: linear-gradient(to bottom, #ff8a00, #da1b60);}
+
+
+.App > div {
+
+  margin-right: 50px;
+}
+
+.todolist {
+  border: 2px solid goldenrod;
+  border-radius: 8px;
+  padding: 20px;
+  animation: slideIn 0.5s ease-in-out;
+}
+
+.error {
+  border: red 1px solid;
+}
+.error-message {
+  color: red;
+}
+
+.is-done {
+  opacity: 0.5;
+}
+
+.active-filter {
+  background-color: aquamarine;
+}
