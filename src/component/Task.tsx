@@ -2,6 +2,7 @@ import {SpanInputForm} from "./SpanInputForm.tsx";
 // import {changeCompletedTC, changeTitleTaskTC, deleteTaskTC} from "./reducers/TaskReducer.ts";
 import {useAppDispatch, useAppSelector} from "./hooks/hooks.ts";
 import {FC, memo, useCallback} from "react";
+import {TaskThunks} from "./reducers/TaskReducer.ts";
 
 type PropsType = {
     todolistId: string
@@ -15,16 +16,16 @@ export const Task: FC<PropsType> = memo(({todolistId, taskId}) => {
 
     console.log(tasks)
     const onRemoveHandler = (id: string) => {
-        // dispatch(deleteTaskTC(todolistId, id))
+        dispatch(TaskThunks.deleteTask({todolistId,taskId: id}))
 
     }
     const onChangeHandler = (id: string, completed:boolean) => {
         // dispatch(changeCompletedTC(todolistId,id,completed, tasks))
 
     }
-    const changeTaskValueHandler = useCallback((id: string, newValue: string) => {
-        // dispatch(changeTitleTaskTC(todolistId, id, newValue, tasks))
-    },[dispatch, todolistId])
+    const changeTaskValueHandler = (id: string, newValue: string) => {
+         dispatch(TaskThunks.changeTitleTask({todolistId,taskId: id, newValue}))
+    }
 
     return (
         <li className={tasks.completed ? "is-done" : ""}>

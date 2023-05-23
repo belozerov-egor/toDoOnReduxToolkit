@@ -38,7 +38,7 @@ export const taskApi = {
     deleteTask(todolistId: string, taskId: string){
         return instance.delete(`todo-lists/${todolistId}/tasks/${taskId}`)
     },
-    changeTaskCompleted(todolistId: string, taskId: string, updateTask : TasksTypeApi){
+    changeTask(todolistId: string, taskId: string, updateTask : UpdateTaskApiType){
         return instance.put(`todo-lists/${todolistId}/tasks/${taskId}`, {...updateTask })
     }
 }
@@ -73,7 +73,6 @@ export type TasksTypeApi = {
 export type UpdateTaskApiType = {
     title: string | null
     description: string | null
-    completed: boolean | null
     status: number | null
     priority: number | null
     startDate: string | null

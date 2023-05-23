@@ -1,19 +1,17 @@
 import {FC, memo, useCallback} from "react";
 import {AddItemForm} from "./AddItemForm";
 import {SpanInputForm} from "./SpanInputForm";
-// import {changeFilterAC, changeTitleTC, deleteTodoTC, FilterValueType} from "./reducers/TodolistReduser";
 import {useAppDispatch, useAppSelector} from "./hooks/hooks";
-import {TaskThunks} from "./reducers/TaskReducer";
+import { TaskThunks} from "./reducers/TaskReducer";
 import {Task} from "./Task.tsx";
 import {TaskSelectors} from "./reducers/TaskSelectors.ts";
-import { FilterValueType, TodolistThunks} from "./reducers/TodolistReduser.ts";
+import {FilterValueType, TodolistAction, TodolistThunks} from "./reducers/TodolistReduser.ts";
 
 
 type PropsType = {
     todolistId: string
     title: string
     filter: FilterValueType
-
 
 
 }
@@ -28,28 +26,28 @@ export const Todolist: FC<PropsType> = memo((props) => {
     const dispatch = useAppDispatch()
     console.log(tasks)
 
-    const filteredTasks = ()=> {
+    const filteredTasks = () => {
         const allTasks = tasks[todolistId] || []
-       return  filter === 'active'
-           ? allTasks.filter(el=> !el.completed)
-           : filter === 'completed'
-               ? allTasks.filter(el=> el.completed)
-               : allTasks
+        return filter === 'active'
+            ? allTasks.filter(el => !el.completed)
+            : filter === 'completed'
+                ? allTasks.filter(el => el.completed)
+                : allTasks
     }
 
     const tasksAfterFilter = filteredTasks()
 
 
     function changeFilter(todolistId: string, value: FilterValueType,) {
-        // dispatch(changeFilterAC(todolistId, value))
+        dispatch(TodolistAction.changeFilter({todolistId, value: value}))
     }
-    const onAllClickHandler = () => changeFilter(todolistId, "all",)
-    const onActiveClickHandler = () => changeFilter(todolistId, "active",)
-    const onCompletedClickHandler = () => changeFilter(todolistId, "completed",)
+
+    const onAllClickHandler = () => changeFilter(todolistId, "all")
+    const onActiveClickHandler = () => changeFilter(todolistId, "active")
+    const onCompletedClickHandler = () => changeFilter(todolistId, "completed")
 
     const addTaskHandler = (title: string) => {
-        // dispatch(addTaskAC(todolistId,title))
-        dispatch(TaskThunks.addTasksTC({todolistId: todolistId, title: title}))
+        dispatch(TaskThunks.addTasks({todolistId, title: title}))
     }
 
     const deleteTodolistHandler = useCallback(() => {
@@ -57,9 +55,9 @@ export const Todolist: FC<PropsType> = memo((props) => {
     }, [dispatch, todolistId])
 
     const changeTodolistTitle = useCallback((newValue: string) => {
-        // dispatch(changeTitleTC(todolistId, newValue))
+        dispatch(TodolistThunks.changeTitle({todolistId, title: newValue}))
 
-    },[dispatch,todolistId])
+    }, [dispatch, todolistId])
 
 
     const tasksItem = tasksAfterFilter.map((t) => {

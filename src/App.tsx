@@ -12,7 +12,7 @@ function App() {
     const todos = useAppSelector(TodolistSelector)
 
     useEffect(()=> {
-        dispatch(TodolistThunks.getTodosTC())
+        dispatch(TodolistThunks.getTodos())
     },[])
 
     const addTodolitHandler = (title: string) => {
