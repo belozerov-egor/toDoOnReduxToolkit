@@ -1,11 +1,12 @@
 import {FC, memo, useCallback} from "react";
 import {AddItemForm} from "./AddItemForm";
 import {SpanInputForm} from "./SpanInputForm";
-import {changeFilterAC, changeTitleTC, deleteTodoTC, FilterValueType} from "./reducers/TodolistReduser";
+// import {changeFilterAC, changeTitleTC, deleteTodoTC, FilterValueType} from "./reducers/TodolistReduser";
 import {useAppDispatch, useAppSelector} from "./hooks/hooks";
-import {addTasksTC} from "./reducers/TaskReducer";
+import {TaskThunks} from "./reducers/TaskReducer";
 import {Task} from "./Task.tsx";
 import {TaskSelectors} from "./reducers/TaskSelectors.ts";
+import { FilterValueType, TodolistThunks} from "./reducers/TodolistReduser.ts";
 
 
 type PropsType = {
@@ -40,7 +41,7 @@ export const Todolist: FC<PropsType> = memo((props) => {
 
 
     function changeFilter(todolistId: string, value: FilterValueType,) {
-        dispatch(changeFilterAC(todolistId, value))
+        // dispatch(changeFilterAC(todolistId, value))
     }
     const onAllClickHandler = () => changeFilter(todolistId, "all",)
     const onActiveClickHandler = () => changeFilter(todolistId, "active",)
@@ -48,15 +49,15 @@ export const Todolist: FC<PropsType> = memo((props) => {
 
     const addTaskHandler = (title: string) => {
         // dispatch(addTaskAC(todolistId,title))
-        dispatch(addTasksTC(todolistId, title))
+        dispatch(TaskThunks.addTasksTC({todolistId: todolistId, title: title}))
     }
 
     const deleteTodolistHandler = useCallback(() => {
-        dispatch(deleteTodoTC(todolistId))
+        dispatch(TodolistThunks.deleteTodo({todolistId}))
     }, [dispatch, todolistId])
 
     const changeTodolistTitle = useCallback((newValue: string) => {
-        dispatch(changeTitleTC(todolistId, newValue))
+        // dispatch(changeTitleTC(todolistId, newValue))
 
     },[dispatch,todolistId])
 

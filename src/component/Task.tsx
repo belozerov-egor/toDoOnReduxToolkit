@@ -1,5 +1,5 @@
 import {SpanInputForm} from "./SpanInputForm.tsx";
-import {changeCompletedTC, changeTitleTaskTC, deleteTaskTC} from "./reducers/TaskReducer.ts";
+// import {changeCompletedTC, changeTitleTaskTC, deleteTaskTC} from "./reducers/TaskReducer.ts";
 import {useAppDispatch, useAppSelector} from "./hooks/hooks.ts";
 import {FC, memo, useCallback} from "react";
 
@@ -15,15 +15,15 @@ export const Task: FC<PropsType> = memo(({todolistId, taskId}) => {
 
     console.log(tasks)
     const onRemoveHandler = (id: string) => {
-        dispatch(deleteTaskTC(todolistId, id))
+        // dispatch(deleteTaskTC(todolistId, id))
 
     }
     const onChangeHandler = (id: string, completed:boolean) => {
-        dispatch(changeCompletedTC(todolistId,id,completed, tasks))
+        // dispatch(changeCompletedTC(todolistId,id,completed, tasks))
 
     }
     const changeTaskValueHandler = useCallback((id: string, newValue: string) => {
-        dispatch(changeTitleTaskTC(todolistId, id, newValue, tasks))
+        // dispatch(changeTitleTaskTC(todolistId, id, newValue, tasks))
     },[dispatch, todolistId])
 
     return (

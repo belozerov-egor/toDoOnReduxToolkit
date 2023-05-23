@@ -1,9 +1,9 @@
-import {useCallback, useEffect} from 'react';
+import {useEffect} from 'react';
 import './App.css';
 import {Todolist} from "./component/Todolist";
 import {AddItemForm} from "./component/AddItemForm";
 import {useAppDispatch, useAppSelector} from "./component/hooks/hooks";
-import {addTodosTC, getTodosTC} from "./component/reducers/TodolistReduser";
+import {TodolistThunks} from "./component/reducers/TodolistReduser";
 import {TodolistSelector} from "./component/reducers/TodolistSelectors.ts";
 
 
@@ -12,12 +12,12 @@ function App() {
     const todos = useAppSelector(TodolistSelector)
 
     useEffect(()=> {
-        dispatch(getTodosTC())
+        dispatch(TodolistThunks.getTodosTC())
     },[])
 
-    const addTodolitHandler = useCallback((title: string) => {
-        dispatch(addTodosTC(title))
-    }, [dispatch])
+    const addTodolitHandler = (title: string) => {
+        dispatch(TodolistThunks.addTodo({title}))
+    }
 
 
     console.log('App')
